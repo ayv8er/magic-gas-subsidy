@@ -1,0 +1,51 @@
+.nav-container {
+  display: flex;
+  justify-content: center;
+  color: white;
+  flex: 1;
+  height: 10vh;
+}
+
+.nav-bar {
+  background-color: black;
+  width: 60%;
+  min-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  margin: 2vh 0 0 0;
+  border-radius: 500px;
+}
+
+.nav-login {
+  display: flex;
+  align-items: center;
+}
+
+.nav-login:hover button {
+  cursor: pointer;
+}
+
+.nav-wallet:hover {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 800px) {
+  .nav-bar {
+    min-width: 100%;
+    padding: 0 40px;
+    margin: 0;
+    border-radius: 0px;
+    padding: 0;
+    font-size: 0.8em;
+  }
+
+  .nav-logo {
+    padding-left: 20px;
+  }
+
+  .nav-login {
+    padding-right: 20px;
+  }
+}
