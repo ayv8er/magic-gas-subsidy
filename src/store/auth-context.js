@@ -11,7 +11,14 @@ export const useAuthContext = () => {
 export const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [publicAddress, setPublicAddress] = useState(null);
   const navigate = useNavigate();
+
+  const getPublicAddress = async () => {
+    const metadata = await magic.user.getMetadata();
+    const address = metadata.publicAddress;
+    setPublicAddress(address);
+  };
 
   const checkAuth = useCallback(async () => {
     setIsLoading(true);
@@ -19,6 +26,7 @@ export const AuthContextProvider = ({ children }) => {
     if (boolean) {
       const did = await magic.user.getIdToken();
       setToken(did);
+      await getPublicAddress();
       navigate("/dashboard", { replace: true });
     }
     setIsLoading(false);
@@ -29,6 +37,7 @@ export const AuthContextProvider = ({ children }) => {
     const did = await magic.auth.loginWithEmailOTP({ email });
     if (did) {
       setToken(did);
+      await getPublicAddress();
       navigate("/dashboard", { replace: true });
     }
     setIsLoading(false);
@@ -44,6 +53,7 @@ export const AuthContextProvider = ({ children }) => {
       value={{
         token,
         isLoading,
+        publicAddress,
         checkAuth,
         login,
         logout,

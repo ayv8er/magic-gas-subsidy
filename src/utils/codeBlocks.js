@@ -75,3 +75,9 @@ export const logout = `const logout = async () => {
     await magic.user.logout();
     setToken(null);
 };`;
+
+export const personalSign = `const handlePersonalSign = async () => {
+    const signedMessage = await web3.eth.personal.sign(message, publicAddress);
+    console.log(signedMessage);
+};
+`;
