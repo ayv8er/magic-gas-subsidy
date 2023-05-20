@@ -1,16 +1,12 @@
-import { useState } from "react";
 import { magic } from "../libs/magic";
 import { useAuthContext } from "../store/auth-context";
 import "./Header.css";
 
 function Header() {
-  const [email, setEmail] = useState("");
-  const { token, isLoading, login, logout } = useAuthContext();
+  const { token, login, logout } = useAuthContext();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setEmail("");
-    await login(email);
+  const handleLogin = async () => {
+    await login();
   };
 
   const handleShowUI = async () => {
@@ -40,16 +36,8 @@ function Header() {
             Wallet
           </div>
         ) : (
-          <div className="nav-login">
-            <label>Login:</label>
-            <form onSubmit={handleLogin}>
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <button disabled={isLoading}>Submit</button>
-            </form>
+          <div className="nav-wallet" onClick={handleLogin}>
+            Login
           </div>
         )}
       </header>

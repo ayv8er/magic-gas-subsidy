@@ -71,11 +71,11 @@ function Landing() {
           <li>
             Header - Trigger Magic{" "}
             <a
-              href="https://magic.link/docs/auth/api-reference/client-side-sdks/web#loginwithemailotp"
+              href="https://magic.link/docs/connect/wallet-api-reference/javascript-client-sdk#connectwithui()"
               target="_blank"
               rel="noreferrer"
             >
-              loginWithEmailOTP
+              connectWithUI
             </a>{" "}
             flow
           </li>

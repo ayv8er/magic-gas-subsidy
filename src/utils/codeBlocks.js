@@ -29,8 +29,8 @@ export const landing = `const checkAuth = async () => {
     }
 };`;
 
-export const logInHeader = `const handleLogin = async (email) => {
-    const did = await magic.auth.loginWithEmailOTP({ email });
+export const logInHeader = `const handleLogin = async () => {
+    const did = await magic.wallet.connectWithUI();
     if (did) {
         setToken(did);
         navigate("/dashboard", { replace: true });

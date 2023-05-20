@@ -18,15 +18,6 @@
   border-radius: 500px;
 }
 
-.nav-login {
-  display: flex;
-  align-items: center;
-}
-
-.nav-login:hover button {
-  cursor: pointer;
-}
-
 .nav-wallet:hover {
   cursor: pointer;
 }
@@ -43,10 +34,6 @@
 
   .nav-logo {
     padding-left: 20px;
-  }
-
-  .nav-login {
-    padding-right: 20px;
   }
 
   .nav-wallet {
