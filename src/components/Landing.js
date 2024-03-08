@@ -23,7 +23,7 @@ function Landing() {
         <h2>
           Magic Gasless Subsidy Demo{" - "}
           <a
-            href="https://github.com/ayv8er/ma-with-wallet-ui"
+            href="https://github.com/ayv8er/magic-gasless-subsidy/tree/main"
             target="_blank"
             rel="noreferrer"
           >
