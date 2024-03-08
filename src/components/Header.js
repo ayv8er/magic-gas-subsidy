@@ -1,5 +1,5 @@
-import { magic } from "../libs/magic";
-import { useAuthContext } from "../store/auth-context";
+import { magic } from "../magic";
+import { useAuthContext } from "../AuthProvider";
 import "./Header.css";
 
 function Header() {

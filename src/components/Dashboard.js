@@ -1,25 +1,54 @@
-import { useState } from "react";
-import { web3 } from "../libs/web3";
-import { useAuthContext } from "../store/auth-context";
+import { useEffect, useState } from "react";
+import { magic } from "../magic";
+import { ethers } from "ethers";
+import { UpdateInstance } from "../Contract/ContractInstance";
+import { useAuthContext } from "../AuthProvider";
 import { CodeBlock, atomOneDark } from "react-code-blocks";
-import { logOutHeader, logout, personalSign } from "../utils/codeBlocks";
+import { logOutHeader, updateNumber, refreshNumber } from "../codeBlocks";
 import "./Dashboard.css";
 
 function Dashboard() {
-  const [message, setMessage] = useState("");
+  const [number, setNumber] = useState("");
+  const [currentNumber, setCurrentNumber] = useState("");
   const { publicAddress } = useAuthContext();
 
-  const handlePersonalSign = async () => {
-    const signedMessage = await web3.eth.personal.sign(message, publicAddress);
-    console.log(signedMessage);
-    setMessage("");
+  const handleRefreshNumber = async () => {
+    try {
+      const currentNumber = await UpdateInstance.getNumber();
+      setCurrentNumber(ethers.formatUnits(currentNumber, 0));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    handleRefreshNumber();
+  }, []);
+
+  const handleUpdateCall = async () => {
+    try {
+      if (!number) {
+        alert("Please enter a number");
+      }
+      const transaction = await UpdateInstance.updateNumber.populateTransaction(
+        number
+      );
+      const gaslessRequest = await magic.wallet.sendGaslessTransaction(
+        publicAddress,
+        transaction
+      );
+      setNumber("");
+      console.log(gaslessRequest);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div className="dashboard-container">
       <div className="dashboard">
         <h2>
-          React App (Magic Auth + Wallet UI){" - "}
+          Magic Gasless Subsidy Demo{" - "}
           <a
             href="https://github.com/ayv8er/ma-with-wallet-ui"
             target="_blank"
@@ -29,49 +58,60 @@ function Dashboard() {
           </a>
         </h2>
         <ul>
-          <li>Header - Render Magic Wallet UI</li>
+          <li>
+            Get current number via{" "}
+            <a
+              href="https://mumbai.polygonscan.com/address/0xb7a854c1ebc50ce9085f64fe90f993375d398fdc#code"
+              target="_blank"
+              rel="noreferrer"
+            >
+              getNumber method
+            </a>
+            {"."}
+          </li>
+          <br />
+          <div className="button-container">
+            Current Number is {currentNumber}
+            <button onClick={handleRefreshNumber}>Refresh</button>
+          </div>
           <br />
           <CodeBlock
-            text={logOutHeader}
+            text={refreshNumber}
             language="javascript"
             theme={atomOneDark}
           />
           <br />
           <li>
-            Trigger{" "}
+            Update number via{" "}
             <a
-              href="https://magic.link/docs/auth/api-reference/client-side-sdks/web#logout"
+              href="https://mumbai.polygonscan.com/address/0xb7a854c1ebc50ce9085f64fe90f993375d398fdc#code"
               target="_blank"
               rel="noreferrer"
             >
-              logout
-            </a>{" "}
-            in Wallet UI
-          </li>
-          <br />
-          <CodeBlock text={logout} language="javascript" theme={atomOneDark} />
-          <br />
-          <li>
-            Trigger Wallet UI signing modal{" - "}
-            <a
-              href="https://web3js.readthedocs.io/en/v1.10.0/web3-eth-personal.html#sign"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Personal Sign
+              updateNumber method
             </a>
+            {"."}
           </li>
           <br />
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <button onClick={handlePersonalSign}>Sign</button>
-          <br />
+          <div className="button-container">
+            <input
+              type="text"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+            />
+            <button onClick={handleUpdateCall}>Update</button>
+          </div>
           <br />
           <CodeBlock
-            text={personalSign}
+            text={updateNumber}
+            language="javascript"
+            theme={atomOneDark}
+          />
+          <br />
+          <li>Display Widget UI Wallet - Logout Function</li>
+          <br />
+          <CodeBlock
+            text={logOutHeader}
             language="javascript"
             theme={atomOneDark}
           />

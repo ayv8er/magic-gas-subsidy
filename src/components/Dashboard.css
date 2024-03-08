@@ -16,6 +16,12 @@
   background-color: silver;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
 @media only screen and (max-width: 800px) {
   .dashboard-container {
     font-size: 0.6em;

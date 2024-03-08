@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback } from "react";
-import { magic } from "../libs/magic";
+import { magic } from "./magic";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
@@ -14,33 +14,45 @@ export const AuthContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const getPublicAddress = async () => {
-    const metadata = await magic.user.getMetadata();
+    const metadata = await magic.user.getInfo();
     const address = metadata.publicAddress;
     setPublicAddress(address);
   };
 
   const checkAuth = useCallback(async () => {
-    const boolean = await magic.user.isLoggedIn();
-    if (boolean) {
-      const did = await magic.user.getIdToken();
-      setToken(did);
-      await getPublicAddress();
-      navigate("/dashboard", { replace: true });
+    try {
+      const boolean = await magic.user.isLoggedIn();
+      if (boolean) {
+        const did = await magic.user.getIdToken();
+        setToken(did);
+        await getPublicAddress();
+        navigate("/dashboard", { replace: true });
+      }
+    } catch (err) {
+      console.log(err);
     }
   }, [navigate]);
 
   const login = async () => {
-    const did = await magic.wallet.connectWithUI();
-    if (did) {
-      setToken(did);
-      await getPublicAddress();
-      navigate("/dashboard", { replace: true });
+    try {
+      const did = await magic.wallet.connectWithUI();
+      if (did) {
+        setToken(did);
+        await getPublicAddress();
+        navigate("/dashboard", { replace: true });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const logout = async () => {
-    await magic.user.logout();
-    setToken(null);
+    try {
+      await magic.user.logout();
+      setToken(null);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

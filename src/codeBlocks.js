@@ -1,24 +1,14 @@
-export const index = `import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router } from "react-router-dom";
-import { AuthContextProvider } from "./store/auth-context";
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-    <Router>
-        <AuthContextProvider>
-            <App />
-        </AuthContextProvider>
-    </Router>
-);`;
-
 export const magic = `import { Magic } from "magic-sdk";
+import { ethers } from 'ethers'
 
-export const magic = new Magic(
-    "{MAGIC_PUBLISHABLE_API_KEY}",
-    {
-        network: "goerli",
+export const magic = new Magic(<YOUR_MAGIC_API_KEY", {
+    network: {
+      rpcUrl: 'https://rpc-mumbai.maticvigil.com',
+      chainId: 80001,
     }
-);`;
+  });
+  
+export const provider = new ethers.BrowserProvider(magic.rpcProvider);`;
 
 export const landing = `const checkAuth = async () => {
     const boolean = await magic.user.isLoggedIn();
@@ -50,16 +40,18 @@ const ProtectedRoute = ({ children }) => {
     return children;
 };`;
 
-export const logOutHeader = `import { magic } from "../libs/magic";
-import { useAuthContext } from "../store/auth-context";
+export const logOutHeader = `import { magic } from "../magic";
 
 function Header() {
-    const { logout } = useAuthContext();
-        
     const handleShowUI = async () => {
         await magic.wallet.showUI().on("disconnect", () => {
             logout();
         });
+    };
+
+    const logout = async () => {
+        await magic.user.logout();
+        setToken(null);
     };
         
     return (
@@ -71,13 +63,16 @@ function Header() {
     );
 };`;
 
-export const logout = `const logout = async () => {
-    await magic.user.logout();
-    setToken(null);
-};`;
+export const updateNumber = `const transaction = await UpdateInstance.updateNumber.populateTransaction(
+    number
+  );
 
-export const personalSign = `const handlePersonalSign = async () => {
-    const signedMessage = await web3.eth.personal.sign(message, publicAddress);
-    console.log(signedMessage);
+  const gaslessRequest = await magic.wallet.sendGaslessTransaction(
+    publicAddress,
+    transaction
+  );
 };
 `;
+
+export const refreshNumber = `const currentNumber = await UpdateInstance.getNumber();
+setCurrentNumber(ethers.formatUnits(currentNumber, 0));`;

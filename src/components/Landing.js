@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { CodeBlock, atomOneDark } from "react-code-blocks";
-import { useAuthContext } from "../store/auth-context";
+import { useAuthContext } from "../AuthProvider";
 import {
   index,
   magic,
   landing,
   logInHeader,
   protectedRoute,
-} from "../utils/codeBlocks";
+} from "../codeBlocks";
 import "./Landing.css";
 
 function Landing() {
@@ -21,7 +21,7 @@ function Landing() {
     <div className="landing-container">
       <div className="landing">
         <h2>
-          React App (Magic Auth + Wallet UI){" - "}
+          Magic Gasless Subsidy Demo{" - "}
           <a
             href="https://github.com/ayv8er/ma-with-wallet-ui"
             target="_blank"
@@ -31,17 +31,8 @@ function Landing() {
           </a>
         </h2>
         <ul>
-          <li>Wrap application in React Context Provider</li>
-          <br />
-          <CodeBlock
-            className="code-block"
-            text={index}
-            language="javascript"
-            theme={atomOneDark}
-          />
-          <br />
           <li>
-            Instantiate{" "}
+            Create{" "}
             <a
               href="https://magic.link/docs/auth/api-reference/client-side-sdks/web#constructor-NaN"
               target="_blank"
@@ -49,7 +40,14 @@ function Landing() {
             >
               Magic
             </a>{" "}
-            configured to Goerli
+            configured to Polygon Mumbai Testnet and export{" "}
+            <a
+              href="https://docs.ethers.org/v6/api/providers/#BrowserProvider"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Ethers Provider
+            </a>{" "}
           </li>
           <br />
           <CodeBlock text={magic} language="javascript" theme={atomOneDark} />
