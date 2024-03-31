@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 
 export const magic = new Magic("pk_live_0F9911410C7C95A2", {
   network: {
-    rpcUrl: "https://rpc-mumbai.maticvigil.com",
+    rpcUrl: "https://polygon-mumbai-pokt.nodies.app",
     chainId: 80001,
   },
 });
