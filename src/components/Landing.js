@@ -1,13 +1,7 @@
 import { useEffect } from "react";
 import { CodeBlock, atomOneDark } from "react-code-blocks";
 import { useAuthContext } from "../AuthProvider";
-import {
-  index,
-  magic,
-  landing,
-  logInHeader,
-  protectedRoute,
-} from "../codeBlocks";
+import { magic, landing, logInHeader, protectedRoute } from "../codeBlocks";
 import "./Landing.css";
 
 function Landing() {
@@ -40,7 +34,7 @@ function Landing() {
             >
               Magic
             </a>{" "}
-            configured to Polygon Mumbai Testnet and export{" "}
+            configured to Polygon Amoy Testnet and export{" "}
             <a
               href="https://docs.ethers.org/v6/api/providers/#BrowserProvider"
               target="_blank"

@@ -3,8 +3,8 @@ import { ethers } from 'ethers'
 
 export const magic = new Magic(<YOUR_MAGIC_API_KEY", {
     network: {
-      rpcUrl: 'https://rpc-mumbai.maticvigil.com',
-      chainId: 80001,
+      rpcUrl: 'https://rpc-amoy.polygon.technology/',
+      chainId: 80002,
     }
   });
   
