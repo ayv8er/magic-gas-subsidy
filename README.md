@@ -14,7 +14,6 @@ Magic email OTP login on Polygon Amoy. Subsidize gas cost for user to update num
 2. Have feature enabled
 3. Implement ERC-2771 standard into smart contract
 4. Register smart contract
-   ![Screenshot 2024-03-07 at 7 17 52 PM](https://github.com/ayv8er/magic-gasless-subsidy/assets/84942969/d88ea1b4-d2b4-4c7a-a28b-d88ec6e3374e)
 
 # Relevant Magic Code
 
